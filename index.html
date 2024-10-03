@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conectando Doações</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function mostrarSecao(secaoId) {
+            const secoes = document.querySelectorAll('section');
+            secoes.forEach(secao => secao.style.display = 'none');
+            document.getElementById(secaoId).style.display = 'block';
+        }
+
+        function exibirConfirmarPontoColeta(resposta) {
+            if (resposta === 'sim') {
+                document.getElementById('confirmarPonto').style.display = 'block';
+            } else {
+                mostrarSecao('pontoColeta');
+            }
+        }
+
+        function exibirConfirmarAgendamento() {
+            document.getElementById('agendamentoConfirmado').style.display = 'block';
+        }
+    </script>
+</head>
+<body>
+
+    <header>
+        <h1>Conectando doações</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#" onclick="mostrarSecao('inicio')">Início</a></li>
+            <li><a href="#" onclick="mostrarSecao('cadastro')">Cadastro</a></li>
+            <li><a href="#" onclick="mostrarSecao('pontoColeta')">Localizar Ponto de Coleta</a></li>
+            <li><a href="#" onclick="mostrarSecao('agendarColeta')">Agendar Coleta</a></li>
+        </ul>
+    </nav>
+
+    <section id="inicio">
+        <div class="container">
+            <h2>Bem-vindo ao site de Doação de Roupas</h2>
+            <p>Nós ajudamos pessoas de baixa renda a ter acesso a boas peças de roupas. Seu apoio pode transformar vidas.</p>
+
+            <h2>Funcionalidades</h2>
+            <ul>
+                <li>Cadastro fácil e rápido para acompanhar suas doações.</li>
+                <li>Localize pontos de coleta de roupas próximos a você.</li>
+                <li>Agende a coleta de roupas na sua casa.</li>
+                <li>Acompanhe o status de suas doações e agendamentos.</li>
+            </ul>
+
+            <h2>Vantagens de doar pelo nosso site:</h2>
+            <ul>
+                <li>Ajude quem precisa de forma prática e segura.</li>
+                <li>Faça parte de uma comunidade solidária que cresce a cada dia.</li>
+                <li>Receba atualizações sobre o impacto das suas doações.</li>
+                <li>Você ainda pode deduzir as doações no seu imposto de renda.</li>
+            </ul>
+
+            <h2>Testemunhos de doadores</h2>
+            <blockquote>
+                <p>"Doar roupas pelo site foi muito simples. Pude ajudar quem mais precisa sem sair de casa!" - Maria S.</p>
+            </blockquote>
+            <blockquote>
+                <p>"Foi incrível ver o impacto que minhas doações causaram. A plataforma é rápida e eficiente." - João M.</p>
+            </blockquote>
+
+            <h2>Notícias e Atualizações</h2>
+            <p>Fique por dentro das nossas últimas campanhas:</p>
+            <ul>
+                <li>Campanha de inverno: Doe agasalhos e ajude famílias a enfrentar o frio.</li>
+                <li>Mutirão de coleta: Estamos passando em vários bairros para facilitar a doação. Agende já sua coleta!</li>
+                <li>Novos pontos de coleta adicionados em mais cidades.</li>
+            </ul>
+
+            <h2>Como doar?</h2>
+            <p>Basta se cadastrar, encontrar um ponto de coleta ou agendar a coleta em sua casa. Cada doação ajuda quem mais precisa.</p>
+        </div>
+    </section>
+
+    <section id="cadastro">
+        <div class="container">
+            <h2>Cadastro de Usuário</h2>
+            <form action="/submit" method="post">
+                <label for="name">Nome Completo</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit" class="button" onclick="mostrarSecao('loginEfetuado')">Cadastrar</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="loginEfetuado">
+        <div class="container">
+            <h2>Login efetuado com sucesso!</h2>
+            <p>Agora você está cadastrado no sistema. Volte ao início para explorar nossas funcionalidades.</p>
+            <button class="button" onclick="mostrarSecao('inicio')">Voltar ao Início</button>
+        </div>
+    </section>
+
+    <section id="pontoColeta">
+        <div class="container">
+            <h2>Localizar Ponto de Coleta</h2>
+            <p>Insira sua localização para encontrar o ponto de coleta mais próximo:</p>
+            <form action="/buscarPonto" method="get">
+                <label for="localizacao">Sua localização:</label>
+                <input type="text" id="localizacao" name="localizacao" required>
+
+                <p>Você está aqui?</p>
+                <button type="button" class="button" onclick="exibirConfirmarPontoColeta('sim')">Sim</button>
+                <button type="button" class="button" onclick="exibirConfirmarPontoColeta('não')">Não</button>
+
+                <div id="confirmarPonto" style="display: none;">
+                    <button type="submit" class="button">Confirmar Localização</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section id="agendarColeta">
+        <div class="container">
+            <h2>Agendar Coleta</h2>
+            <p>Agende uma coleta em sua casa preenchendo o formulário abaixo:</p>
+            <form action="/agendarColeta" method="post">
+                <label for="endereco">Endereço Completo</label>
+                <input type="text" id="endereco" name="endereco" required>
+
+                <label for="data">Data da Coleta</label>
+                <input type="date" id="data" name="data" required>
+
+                <button type="button" class="button" onclick="exibirConfirmarAgendamento()">Confirmar</button>
+            </form>
+
+            <div id="agendamentoConfirmado" style="display: none;">
+                <h2>Agendamento Confirmado!</h2>
+                <p>Sua coleta foi agendada com sucesso!</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Doação de Roupas. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>
